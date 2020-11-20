@@ -1,0 +1,50 @@
+package com.ujwal.HRS.dao;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
+
+import com.ujwal.HRS.entity.Booking;
+import com.ujwal.HRS.repository.BookingRepo;
+
+@Repository
+@Transactional
+@Scope("prototype")
+public class BookingDao {
+	
+	@Autowired
+	BookingRepo repository;
+	
+	public Booking save(Booking book) {
+		return repository.save(book);
+	}
+	
+	public List<Booking> getAllBookings(){
+		return repository.findAll();
+	}
+	
+	public List<Booking> getFilterByDate(Date date, String checkBy) {
+		List<Booking> bookings=new ArrayList<>();
+		List<Booking> filteBookings=new ArrayList<Booking>();
+		for(Booking book:bookings) {
+			if(checkBy=="checkin") {
+				if(book.getCheck_in().equals(date)) {
+					filteBookings.add(book);
+				}
+			}else{
+				if(book.getCheck_out().equals(date)) {
+					filteBookings.add(book);
+				}
+			}
+			
+		}
+		return filteBookings;
+		
+	}
+}

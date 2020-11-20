@@ -1,0 +1,51 @@
+package com.ujwal.HRS.entity;
+
+import java.sql.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+@Entity
+public class Booking {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	private Date check_in;
+	private Date check_out;
+	private Integer totalRoomBooked;
+	private Long totalBill;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "room_id")
+	private Room room;
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Date getCheck_in() {
+		return check_in;
+	}
+	public void setCheck_in(Date check_in) {
+		this.check_in = check_in;
+	}
+	public Date getCheck_out() {
+		return check_out;
+	}
+	public void setCheck_out(Date check_out) {
+		this.check_out = check_out;
+	}
+	public Room getRoom() {
+		return room;
+	}
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+}

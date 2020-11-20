@@ -1,0 +1,72 @@
+package com.ujwal.HRS.controller;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Root;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ujwal.HRS.dao.BookingDao;
+import com.ujwal.HRS.dao.RoomDao;
+import com.ujwal.HRS.entity.Booking;
+import com.ujwal.HRS.entity.Room;
+
+
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
+@RequestMapping("/hrs")
+public class BookingController {
+	@Autowired
+	private BookingDao bookingDao;
+	
+	@Autowired
+	private EntityManager entityManager;
+	
+	@PostMapping("booking")
+	public Booking saveUser(@RequestBody Booking book) {
+		return bookingDao.save(book);
+	}
+	
+	@GetMapping("booking/getAll")
+	public List<Booking> getAll(){
+		return bookingDao.getAllBookings();
+	}
+	
+	public Room getAvailableRooms(Date date) {
+		Booking booking=new Booking();
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Booking> criteriaQuery = criteriaBuilder.createQuery(Booking.class);
+		Root<Booking> root = criteriaQuery.from(entityManager.getMetamodel().entity(Booking.class));
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		java.util.Date startDate = dateFormat.parse("24-02-2016");
+		java.util.Date endDate = dateFormat.parse("24-03-2016");
+
+		ParameterExpression<Date> parameter = criteriaBuilder.parameter(java.util.Date.class);
+
+		Predicate endDatePredicate = criteriaBuilder.lessThanOrEqualTo(booking.getCheck_in().as(java.sql.Date.class), parameter);
+
+		Predicate and = criteriaBuilder.and(, endDateOrPredicate);
+		criteriaQuery.where(and);
+
+		List<Booking> list = entityManager.createQuery(criteriaQuery)
+		        .setParameter(parameter, startDate, TemporalType.DATE)
+		        .setParameter(parameter, endDate, TemporalType.DATE)
+		        .getResultList();
+	}
+}

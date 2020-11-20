@@ -1,0 +1,19 @@
+package com.ujwal.HRS.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.GeneratorType;
+
+@Entity
+public class ImageUpload {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	private String imageName;
+	private String type;
+	private byte[] picbyte;
+}

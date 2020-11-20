@@ -1,0 +1,45 @@
+package com.ujwal.HRS.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ujwal.HRS.dao.UserDao;
+import com.ujwal.HRS.entity.User;
+
+
+
+
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
+@RequestMapping("/hrs")
+public class UserController {
+	
+	@Autowired
+	UserDao userDao;
+	
+	@PostMapping("user")
+	public User saveUser(@RequestBody User user) {
+		return userDao.save(user);
+	}
+	
+	@GetMapping("user/{id}")
+	public Optional<User> getUserBtId(@PathVariable Integer id) {
+		return userDao.getUser(id);
+	}
+	
+	@GetMapping("/getAll")
+	public List<User> getAll(){
+		return userDao.getAllUsers();
+	}
+	
+}
+ 

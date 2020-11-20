@@ -1,0 +1,12 @@
+package com.ujwal.HRS.entity;
+
+import javax.persistence.Entity;
+
+@Entity
+public class ImageUpload {
+
+	private Integer id;
+	private String imageName;
+	private String type;
+	private byte[] picbyte;
+}

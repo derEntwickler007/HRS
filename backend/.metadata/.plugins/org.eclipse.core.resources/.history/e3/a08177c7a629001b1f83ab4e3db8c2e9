@@ -1,0 +1,35 @@
+package com.ujwal.HRS.dao;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.ujwal.HRS.entity.User;
+import com.ujwal.HRS.repository.RoomRepository;
+
+public class RoomDao {
+	
+	@Autowired
+	RoomRepository repository;
+	
+	public User save(Room user) {
+		return repository.save(user);
+	}
+	
+	public List<User> getAllUsers(){
+		return repository.findAll();
+	}
+	
+	public Optional<User> getUser(Integer id) {
+		return repository.findById(id);
+	}
+	
+	public void deleteUser(Integer id) {
+		repository.deleteById(id);;
+	}
+	
+	public User updateUser(User user) {
+		return repository.save(user);
+	}
+}

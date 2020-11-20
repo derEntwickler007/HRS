@@ -1,0 +1,43 @@
+package com.ujwal.HRS.dao;
+
+import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
+import com.ujwal.HRS.entity.Room;
+import com.ujwal.HRS.repository.RoomRepository;
+
+@Repository
+@Transactional
+@Scope("prototype")
+public class RoomDao {
+	
+	@Autowired
+	RoomRepository repository;
+	
+	public Room save(Room room) {
+		return repository.save(room);
+	}
+	
+	public List<Room> getAllUsers(){
+		return repository.findAll();
+	}
+	
+	public Optional<Room> getUser(Integer id) {
+		return repository.findById(id);
+	}
+	
+	public void deleteUser(Integer id) {
+		repository.deleteById(id);;
+	}
+	
+	public Room updateUser(Room room) {
+		return repository.save(room);
+	}
+}

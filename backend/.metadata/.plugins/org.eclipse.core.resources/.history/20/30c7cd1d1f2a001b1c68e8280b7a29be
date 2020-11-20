@@ -1,0 +1,30 @@
+package com.ujwal.HRS.dao;
+
+import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
+
+import com.ujwal.HRS.entity.Booking;
+import com.ujwal.HRS.repository.BookingRepo;
+
+@Repository
+@Transactional
+@Scope("prototype")
+public class BookingDao {
+	
+	@Autowired
+	BookingRepo repository;
+	
+	public Booking save(Booking book) {
+		return repository.save(book);
+	}
+	
+	public List<Booking> getAllUsers(){
+		return repository.findAll();
+	}
+}

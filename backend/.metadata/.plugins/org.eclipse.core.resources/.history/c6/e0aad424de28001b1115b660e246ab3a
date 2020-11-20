@@ -1,0 +1,11 @@
+package com.ujwal.HRS.entity;
+
+public class Booking {
+	
+	private Integer id;
+	private Date check_in;
+	private Date check_out;
+	private Room room;
+	
+
+}

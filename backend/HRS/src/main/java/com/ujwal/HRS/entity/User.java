@@ -1,0 +1,115 @@
+package com.ujwal.HRS.entity;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+
+@Entity
+public class User {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	private String firstName;
+	private String lastName;
+	@Column(unique = true)
+	private Long mobile_no;
+	private boolean active;
+	@Column(unique = true)
+	private String emailId;
+	private String password;
+	
+	@OneToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name="role_id")
+	private Role role;
+	
+	public User() {
+		
+	}
+	
+
+
+
+
+	public User(Integer id, String firstName, String lastName, Long mobile_no, boolean active, String emailId,
+			String password, Role role) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.mobile_no = mobile_no;
+		this.active = active;
+		this.emailId = emailId;
+		this.password = password;
+		this.role = role;
+	}
+
+
+
+
+
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public String getEmailId() {
+		return emailId;
+	}
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Long getMobile_no() {
+		return mobile_no;
+	}
+
+	public void setMobile_no(Long mobile_no) {
+		this.mobile_no = mobile_no;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+
+	public Role getRole() {
+		return role;
+	}
+
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
+}
